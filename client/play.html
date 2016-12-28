@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>We Suck at Drawing</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript" src="../client/js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="../client/css/play.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link rel="icon" href="../client/imgs/favicon.png">
+</head>
+<body>
+    <div id="site-wrapper">
+        <div id="play">
+            <header>
+                <p id="username">username</p>
+            </header>
+            <div id="prompt-wrapper">
+                <p id="static">please draw&#58;</p>
+                <p id="prompt">a picture of yourself!</p>
+            </div>
+            <div id="canvas-wrapper">
+                <canvas id="canvas" width="300" height="400"></canvas>
+            </div>
+            <div id="button-wrapper">
+                <button id="send">Send</button>
+            </div>
+        </div>
+        <div id="login">
+            <h1>We Suck at Drawing</h1>
+            <div id="login-wrapper">  
+                <p id="login-text">Room Code&#58;</p>
+                <input type="text" id="room-code" maxlength="4">
+                <p id="login-text">Name &#40;Limit 12 Characters&#41;&#58;</p>
+                <input type="text" id="display-name" maxlength="12">
+                <button id="login-send">Connect</button>
+                <p id="login-error">ERROR</p>
+            </div>
+        </div>
+        <div id="input-text">
+            <p id="it-static">Enter a Title&#58;</p>
+            <input type=text id="it-display-name" maxlength="50">
+            <button id="it-send">Send</button>
+            <p id="but-error">This title is to close to the actual title or another players answer.</p>
+        </div>
+        <div id="input-answers">
+            <button class="answers-bttn" id="ans1">Answer 1</button>
+            <button class="answers-bttn" id="ans2">Answer 2</button>
+            <button class="answers-bttn" id="ans3">Answer 3</button>
+            <button class="answers-bttn" id="ans4">Answer 4</button>
+            <button class="answers-bttn" id="ans5">Answer 5</button>
+            <button class="answers-bttn" id="ans6">Answer 6</button>
+            <button class="answers-bttn" id="ans7">Answer 7</button>
+            <button class="answers-bttn" id="ans8">Answer 8</button>
+            <button class="answers-bttn" id="ans9">Answer 9</button>
+            <button class="answers-bttn" id="ans10">Answer 10</button>
+            <button class="answers-bttn" id="ans11">Answer 11</button>
+            <button class="answers-bttn" id="ans12">Answer 12</button>
+            <button class="answers-bttn" id="ans13">Answer 13</button>
+            <button class="answers-bttn" id="ans14">Answer 14</button>
+            <button class="answers-bttn" id="ans15">Answer 15</button>
+            <button class="answers-bttn" id="ans16">Answer 16</button>
+            <button class="answers-bttn" id="ans17">Answer 17</button>
+            <button class="answers-bttn" id="ans18">Answer 18</button>
+            <button class="answers-bttn" id="ans19">Answer 19</button>
+            <button class="answers-bttn" id="ans20">Answer 20</button>
+        </div>
+    </div>
+<script type="text/javascript" src="../client/js/play.js"></script>
+</body>
+</html>

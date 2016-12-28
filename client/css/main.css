@@ -1,0 +1,52 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    cursor: default;
+}
+
+body{
+    background-color: #f9f8d7;
+}
+
+#site-wrapper{
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#canvas-wrapper{
+    width: 800px;
+    height: 500px;
+    margin: 150px auto 0px;
+    border: 2px solid #181818;
+    background-color: #fff;
+}
+
+#name{
+    position: relative;
+    height: 50px;
+    width: 200px;
+    padding-left: 25px;
+    padding-right: 25px;
+    top: 50px;
+    left: 100px;
+    font-family: "Raleway", sans-serif;
+    font-size: 25px;
+}
+
+#button-wrapper{
+    width: 460px;
+    height: 250px;
+    margin: 25px auto 0px;
+}
+
+button{
+    height: 50px;
+    width: 150px;
+}
+
+#update{
+    position: relative;
+    top: 110px;
+    left: -100px;
+}

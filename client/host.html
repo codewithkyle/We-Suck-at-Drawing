@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>We Suck at Drawing</title>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript" src="../client/js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="../client/css/host.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link rel="icon" href="../client/imgs/favicon.png">
+</head>
+<body>
+    <div id="site-wrapper">
+        <canvas width="1920" height="1085" id="canvas"></canvas>
+        <div id="main-menu">
+            <h1>join on your <img id="phone" src="../client/imgs/phone.png"> at&#58; <span id="link">YSAD.com</span></h1>
+            <h2>your room code is</h2>
+            <h3 id="room-code">XKRP</h3>
+            <div id="start-game-wrapper">
+                <button id="start-game">Everybody&#39;s Ready</button>
+            </div>
+            <div id="family-friendly-wrapper">
+                <button id="family-friendly">Not Safe For Work</button>
+            </div>
+            <div id="family-friendly-wrapper">
+                <button id="help">HELP&#33;</button>
+            </div>
+        </div>
+        <div id="help-screen">
+            <h1>I can&#39;t connect&#63;</h1>
+            <p>Double check that you typed everything in correctly. If you can&#39;t join your room try creating an new room. If you can&#39;t load the web page at all make sure you are connected to the wifi. If all else fails the most might need to port forward the port 1234 to the computer that is hosting the lobby.</p>
+            <h1>How do I play&#63;</h1>
+            <p>Once you join a room you need to draw a picture for yourself. Once everyone is in the lobby you can press the Everybody&#39;s Ready button. At this point, everyone should check their devices for a drawing prompt. You need to do your best to draw your prompt. Once the drawing phase is over the game will take turns showing everyones artwork. Your job is to come up with a prompt that is simmular to what the drawing looks like. The game will post everyones answers, your goal is to trick people into thinking your lie is the correct prompt while you find the actual answer. We assign points based on answers and and after 2 full rounds the player with the most points wins.</p>
+            <h1>Who made this?</h1>
+            <p>Hi&#33; My name is Kyle Andrews and I created this. The orginal gameplay is based on a game called Drawful and the writing prompts are taken from Cards Against Humanity.</p>
+            <div id="close-wrapper">
+                <button id="close-help">Close</button>
+            </div>
+        </div>
+        <div id="timer">
+            <span id="timer-message">DRAWING TIME&#33;</span>
+            <span id="countdown">120</span>
+        </div>
+        <div id="display">
+            <p id="drawing-title">what is it?</p>
+            <p id="input-countdown">60</p>
+        </div>
+        <div id="answer-display">
+            <p class="answers" id="pos1">ANSWER 1</p>
+            <p class="answers" id="pos2">ANSWER 2</p>
+            <p class="answers" id="pos3">ANSWER 3</p>
+            <p class="answers" id="pos4">ANSWER 4</p>
+            <p class="answers" id="pos5">ANSWER 5</p>
+            <p class="answers" id="pos6">ANSWER 6</p>
+            <p class="answers" id="pos7">ANSWER 7</p>
+            <p class="answers" id="pos8">ANSWER 8</p>
+            <p class="answers" id="pos9">ANSWER 9</p>
+            <p class="answers" id="pos10">ANSWER 10</p>
+            <p class="answers" id="pos11">ANSWER 11</p>
+            <p class="answers" id="pos12">ANSWER 12</p>
+            <p class="answers" id="pos13">ANSWER 13</p>
+            <p class="answers" id="pos14">ANSWER 14</p>
+            <p class="answers" id="pos15">ANSWER 15</p>
+            <p class="answers" id="pos16">ANSWER 16</p>
+            <p class="answers" id="pos17">ANSWER 17</p>
+            <p class="answers" id="pos18">ANSWER 18</p>
+            <p class="answers" id="pos19">ANSWER 19</p>
+            <p class="answers" id="pos20">ANSWER 20</p>
+        </div>
+    </div>
+<script type="text/javascript" src="../client/js/host.js"></script>
+</body>
+</html>

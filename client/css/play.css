@@ -1,0 +1,239 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    background-color: #e1e3e2;
+    overflow-x: hidden;
+}
+
+#site-wrapper{
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+header{
+    width: 100vw;
+    height: 50px;
+    background-color: #e37e18;
+    border-bottom: 4px #181818 solid;
+}
+
+#username{
+    font-family: "Roboto Slab", serif;
+    font-size: 25px;
+    color: #e8e8e8;
+    height: 75px;
+    width: 200px;
+    text-align: center;
+    margin: 0px auto 0px;
+    position: relative;
+    top: 8px;
+    text-transform: uppercase;
+}
+
+#canvas-wrapper{
+    width: 300px;
+    height: 400px;
+    position: relative;
+    margin: 0px auto 0px;
+    background-color: #181818;
+}
+
+#canvas{
+    border: 4px #181818 solid;
+    background-color: #fff;
+    z-index: 0;
+}
+
+#button-wrapper{
+    width: 125px;
+    height: 50px;
+    position: relative;
+    margin: 20px auto 0px;
+}
+
+#send{
+    width: 125px;
+    height: 50px;
+    font-family: "Roboto Slab", serif;
+    font-size: 25px;
+    color: #e8e8e8;
+    background-color: #181818;
+    border: 4px #181818 solid;
+    outline: none;
+}
+
+#send:hover{
+    background-color: #d9d9d9;
+    color: #181818;
+}
+
+#send:active{
+    background-color: #767676;
+}
+
+#prompt-wrapper{
+    width: 98vw;
+    height: 75px;
+    position: relative;
+    margin: 0px auto 0px;
+}
+
+#static{
+    font-family: "Roboto Slab", serif;
+    font-size: 25px;
+    color: #181818;
+    text-align: center;
+}
+
+#it-static{
+    font-family: "Roboto Slab", serif;
+    font-size: 20px;
+    color: #2f85e8;
+}
+
+#it-send{
+    width: 125px;
+    height: 50px;
+    font-family: "Roboto Slab", serif;
+    font-size: 25px;
+    color: #e8e8e8;
+    background-color: #181818;
+    border: 4px #181818 solid;
+    outline: none;
+    margin: 10px auto 0px;
+}
+
+#it-send:hover{
+    background-color: #d9d9d9;
+    color: #181818;
+}
+
+#it-send:active{
+    background-color: #767676;
+}
+
+#prompt{
+    font-family: "Roboto Slab", serif;
+    font-size: 20px;
+    color: #e37e18;
+    text-align: center;
+    position: relative;
+    top: 5px;
+}
+
+#input-text{
+    position: relative;
+    margin: -30px auto 0px;
+    height: 400px;
+    width: 300px;
+}
+
+#input-answers{
+    position: relative;
+    width: 300px;
+    margin: -80px auto 0px;
+    overflow-x: hidden;
+}
+
+.answers-bttn{
+    width: 300px;
+    height: 75px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-family: "Roboto Slab", serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #181818;
+    border: 2px #181818 solid;
+    position: relative;
+    display: block;
+    outline: none;
+    margin: 10px auto 0px;
+}
+
+#answers-bttn:active{
+    background-color: #9b9b9b;
+}
+
+/* LOGIN STUFF */
+
+#login-wrapper{
+    position: relative;
+    margin: 35px auto 0px;
+    height: 400px;
+    width: 300px;
+}
+
+h1{
+    font-family: "Roboto Slab", serif;
+    font-size: 30px;
+    color: #181818;
+    margin: 40px 0px 0px 0px;
+    width: 100vw;
+    text-align: center;
+}
+
+input{
+    outline: none;
+    border: 4px #181818 solid;
+    height: 50px;
+    width: 275px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #181818;
+    font-family: "Roboto Slab", serif;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+#login-text{
+    font-family: "Roboto Slab", serif;
+    font-size: 20px;
+    color: #2f85e8;
+    margin: 20px 0px 0px 0px;
+}
+
+#login-send{
+    width: 125px;
+    height: 50px;
+    font-family: "Roboto Slab", serif;
+    font-size: 25px;
+    color: #e8e8e8;
+    background-color: #181818;
+    border: 4px #181818 solid;
+    outline: none;
+    margin: 30px auto 0px;
+}
+
+#login-send:hover{
+    background-color: #d9d9d9;
+    color: #181818;
+}
+
+#login-send:active{
+    background-color: #767676;
+}
+
+#login-error{
+    font-family: "Roboto Slab", serif;
+    font-size: 20px;
+    color: #ff3434;
+    position: relative;
+    top: -267px;
+    left: 225px;
+}
+
+#but-error{
+    font-family: "Roboto Slab", serif;
+    font-size: 18px;
+    color: #ff3434;
+    position: relative;
+    width: 98%;
+    top: 15px;
+}
