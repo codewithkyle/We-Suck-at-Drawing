@@ -156,9 +156,11 @@ header{
     outline: none;
     margin: 10px auto 0px;
 }
-
+#answers-bttn:hover{
+    background-color: #909090;
+}
 #answers-bttn:active{
-    background-color: #9b9b9b;
+    background-color: #696969;
 }
 
 /* LOGIN STUFF */

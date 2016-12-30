@@ -8,6 +8,8 @@ var playerColor = '#181818';
 var state = "login";
 var playerNumber = 0;
 var currentNumberOfAnswers = 0;
+var yourAnswer = '';
+var youVoted = false;
 
 ////////////////////////////////////////////////////////////////////////////JQUERY STUFF\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 $('#play').hide();
@@ -82,6 +84,7 @@ $('#send').click(function(){
 });
 
 $('#it-send').click(function(){
+    yourAnswer = $('#it-display-name').val();
     socket.emit('UTI', {
         title: $('#it-display-name').val()
     });
@@ -266,6 +269,13 @@ socket.on('YTL', function(){
     $('#prompt').text("you were too slow.");
 });
 
+//You're to late, you can't type an answer anymore
+socket.on('SAV', function(){
+    if(!youVoted){
+        HideAllAnswersNoVote();
+    }
+});
+
 //The server just sent us a new voting option, we should show it to the player
 socket.on('NVO', function(data){
     $('#prompt').hide();
@@ -274,83 +284,83 @@ socket.on('NVO', function(data){
     currentNumberOfAnswers++;
     
     //This is show the buttons and load the answer text into them
-    if(currentNumberOfAnswers == 1){
+    if(currentNumberOfAnswers == 1 && data.possibleAnswer != yourAnswer){
         $('#ans1').show();
         $('#ans1').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 2){
+    else if(currentNumberOfAnswers == 2 && data.possibleAnswer != yourAnswer){
         $('#ans2').show();
         $('#ans2').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 3){
+    else if(currentNumberOfAnswers == 3 && data.possibleAnswer != yourAnswer){
         $('#ans3').show();
         $('#ans3').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 4){
+    else if(currentNumberOfAnswers == 4 && data.possibleAnswer != yourAnswer){
         $('#ans4').show();
         $('#ans4').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 5){
+    else if(currentNumberOfAnswers == 5 && data.possibleAnswer != yourAnswer){
         $('#ans5').show();
         $('#ans5').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 6){
+    else if(currentNumberOfAnswers == 6 && data.possibleAnswer != yourAnswer){
         $('#ans6').show();
         $('#ans6').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 7){
+    else if(currentNumberOfAnswers == 7 && data.possibleAnswer != yourAnswer){
         $('#ans7').show();
         $('#ans7').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 8){
+    else if(currentNumberOfAnswers == 8 && data.possibleAnswer != yourAnswer){
         $('#ans8').show();
         $('#ans8').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 9){
+    else if(currentNumberOfAnswers == 9 && data.possibleAnswer != yourAnswer){
         $('#ans9').show();
         $('#ans9').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 10){
+    else if(currentNumberOfAnswers == 10 && data.possibleAnswer != yourAnswer){
         $('#ans10').show();
         $('#ans10').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 11){
+    else if(currentNumberOfAnswers == 11 && data.possibleAnswer != yourAnswer){
         $('#ans11').show();
         $('#ans11').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 12){
+    else if(currentNumberOfAnswers == 12 && data.possibleAnswer != yourAnswer){
         $('#ans12').show();
         $('#ans12').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 13){
+    else if(currentNumberOfAnswers == 13 && data.possibleAnswer != yourAnswer){
         $('#ans13').show();
         $('#ans13').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 14){
+    else if(currentNumberOfAnswers == 14 && data.possibleAnswer != yourAnswer){
         $('#ans14').show();
         $('#ans14').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 15){
+    else if(currentNumberOfAnswers == 15 && data.possibleAnswer != yourAnswer){
         $('#ans15').show();
         $('#ans15').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 16){
+    else if(currentNumberOfAnswers == 16 && data.possibleAnswer != yourAnswer){
         $('#ans16').show();
         $('#ans16').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 17){
+    else if(currentNumberOfAnswers == 17 && data.possibleAnswer != yourAnswer){
         $('#ans17').show();
         $('#ans17').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 18){
+    else if(currentNumberOfAnswers == 18 && data.possibleAnswer != yourAnswer){
         $('#ans18').show();
         $('#ans18').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 19){
+    else if(currentNumberOfAnswers == 19 && data.possibleAnswer != yourAnswer){
         $('#ans19').show();
         $('#ans19').text(data.possibleAnswer);
     }
-    else if(currentNumberOfAnswers == 20){
+    else if(currentNumberOfAnswers == 20 && data.possibleAnswer != yourAnswer){
         $('#ans20').show();
         $('#ans20').text(data.possibleAnswer);
     }
@@ -359,6 +369,7 @@ socket.on('NVO', function(data){
 
 ////////////////////////////////////////////////////////////////////////////FUNCTIONS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 function HideAllAnswers(){
+    youVoted = true;
     $('#input-answers').hide();
     $('#ans1').hide();
     $('#ans2').hide();
@@ -383,6 +394,33 @@ function HideAllAnswers(){
     
     $('#prompt').show();
     $('#prompt').text("nice choice.");
+}
+
+function HideAllAnswersNoVote(){
+    $('#input-answers').hide();
+    $('#ans1').hide();
+    $('#ans2').hide();
+    $('#ans3').hide();
+    $('#ans4').hide();
+    $('#ans5').hide();
+    $('#ans6').hide();
+    $('#ans7').hide();
+    $('#ans8').hide();
+    $('#ans9').hide();
+    $('#ans10').hide();
+    $('#ans11').hide();
+    $('#ans12').hide();
+    $('#ans13').hide();
+    $('#ans14').hide();
+    $('#ans15').hide();
+    $('#ans16').hide();
+    $('#ans17').hide();
+    $('#ans18').hide();
+    $('#ans19').hide();
+    $('#ans20').hide();
+    
+    $('#prompt').show();
+    $('#prompt').text("you're out of time.");
 }
 
 function GetUsersColor(playerNum){

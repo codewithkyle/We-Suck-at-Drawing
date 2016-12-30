@@ -71,6 +71,29 @@ var player18Name;
 var player19Name;
 var player20Name;
 
+var player1Vote;
+var player2Vote;
+var player3Vote;
+var player4Vote;
+var player5Vote;
+var player6Vote;
+var player7Vote;
+var player8Vote;
+var player9Vote;
+var player10Vote;
+var player11Vote;
+var player12Vote;
+var player13Vote;
+var player14Vote;
+var player15Vote;
+var player16Vote;
+var player17Vote;
+var player18Vote;
+var player19Vote;
+var player20Vote;
+
+var players = [];
+
 var currentDrawing = new Image();
 var currentArtist = '';
 var currentPrompt = '';
@@ -82,6 +105,8 @@ var doDrawingTime = false;
 var time = 0;
 var answerTime = 60;
 var doAnswerTime = false;
+var doVoteTime = false;
+var voteTime = 30;
 
 var numOfPlayers = 0;
 
@@ -206,6 +231,78 @@ socket.on('APA', function(){
 //All players answewrs have been loaded, we need to randomly position them on the screen
 socket.on('PAF', function(){
     PositionPlayersAnswers();
+});
+
+//All players have voted, we can stop the timer stuff
+socket.on('SVT', function(){
+    socket.emit('RPV');
+});
+
+socket.on('UPS', function(){
+    UpdatePlayerScores();
+});
+
+socket.on('NPV', function(data){ 
+    if(data.playerNum == 1){
+        player1Vote == data.vote;
+    }
+    else if(data.playerNum == 2){
+        player2Vote == data.vote;
+    }
+    else if(data.playerNum == 3){
+        player3Vote == data.vote;
+    }
+    else if(data.playerNum == 4){
+        player4Vote == data.vote;
+    }
+    else if(data.playerNum == 5){
+        player5Vote == data.vote;
+    }
+    else if(data.playerNum == 6){
+        player6Vote == data.vote;
+    }
+    else if(data.playerNum == 7){
+        player7Vote == data.vote;
+    }
+    else if(data.playerNum == 8){
+        player8Vote == data.vote;
+    }
+    else if(data.playerNum == 9){
+        player9Vote == data.vote;
+    }
+    else if(data.playerNum == 10){
+        player10Vote == data.vote;
+    }
+    else if(data.playerNum == 11){
+        player11Vote == data.vote;
+    }
+    else if(data.playerNum == 12){
+        player12Vote == data.vote;
+    }
+    else if(data.playerNum == 13){
+        player13Vote == data.vote;
+    }
+    else if(data.playerNum == 14){
+        player14Vote == data.vote;
+    }
+    else if(data.playerNum == 15){
+        player15Vote == data.vote;
+    }
+    else if(data.playerNum == 16){
+        player16Vote == data.vote;
+    }
+    else if(data.playerNum == 17){
+        player17Vote == data.vote;
+    }
+    else if(data.playerNum == 18){
+        player18Vote == data.vote;
+    }
+    else if(data.playerNum == 19){
+        player19Vote == data.vote;
+    }
+    else if(data.playerNum == 20){
+        player20Vote == data.vote;
+    }
 });
 
 socket.on('PAA', function(data){
@@ -618,6 +715,27 @@ socket.on('NUA', function(data){
     }
 });
 
+//We need to loop through all the players and then check every players vote with their answers
+//If a player voted for their answer we will give them points
+//If they got the right answer they will get a bunch of points
+function UpdatePlayerScores(){
+    for(var x = 0; x < numOfPlayers; x++){
+        var playerNum = x + 1;
+        var currentPlayersAnswer = "player" + playerNum + "Answer";
+        
+        for(var i = 0; i < numOfPlayers; i++){
+            var player2Num = i + 1;
+            var playersVote = "player" + player2Num + "Vote";
+            
+            //If it isn't the same player and the answers match the current player gets points
+            if(i != x && playersVote == currentPlayersAnswer){
+                
+            }
+        }
+        
+    }
+}
+
 //This function will randomly position the players answers on the screen
 function PositionPlayersAnswers(){ 
     var mixedPlayers = shuffle(playersAnswers);
@@ -632,6 +750,8 @@ function PositionPlayersAnswers(){
         });
     }
     $('#answer-display').show();
+    doVoteTime = true;
+    $('#input-countdown').show();
 }
     
 function shuffle(o) {
@@ -742,6 +862,18 @@ function update(){
     var timeNew = Date.now();
     var deltaTime = (timeNew - time)/1000;
     time = timeNew;
+    
+    if(doVoteTime){
+        voteTime -= deltaTime;
+        
+        $('#input-countdown').text(Math.ceil(voteTime).toString());
+        
+        if(voteTime <= 0){
+            doVoteTime = false;
+            $('#input-countdown').hide();
+            socket.emit('VTO');
+        }
+    }
     
     if(doAnswerTime){
         answerTime -= deltaTime;

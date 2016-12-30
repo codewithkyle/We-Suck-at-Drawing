@@ -78,6 +78,7 @@ io.sockets.on('connection', function(socket){
                 clients[k].finishedDrawing = false;
                 clients[k].isHost = false;
                 clients[k].answer = '';
+                clients[k].chosenAnswer = '';
                 console.log('[SERVER] New client is trying to find a room.');
                 //search through clients to find host and look for the correct room code
                 for(var x = 0; x < clients.length; x++){
@@ -338,14 +339,63 @@ io.sockets.on('connection', function(socket){
         }
     });
 
+    //VTO - Voting Time Over
+    //OUTPUT: SAV - Stop Allowing Voting
+    //We need to tell all the clients in the room that they can't vote anymore
+    socket.on('VTO', function(data){
+        for(var k = 0; k < clients.length; k++){
+            if(socket.id == clients[k].id){
+                socket.broadcast.to(clients[k].room).emit('SAV');
+            }
+        }
+    });
+
+    //RPV - Request Player Votes
+    //OUTPUT: NPV - New Player Vote
+    //Loop through players and return their votes and player numbers
+    socket.on('RPV', function(data){
+        for(var k = 0; k < clients.length; k++){
+            if(socket.id == clients[k].id){
+                //K is host
+                //X is players
+                for(var x = 0; x < clients.length; x++){
+                    if(clients[x].room == clients[k].room){
+                        socket.emit('NPV', {
+                            playerNum: clients[x].playerNum,
+                            vote: clients[k].chosenAnswer
+                        });
+                    }
+
+                    if(x == clients.length - 1){
+                        //we are at the end of the loop, we need to tell the host to update scores
+                        socket.emit('UPS');
+                    }
+                }
+            }
+        }
+    });
+
     //UCA - User Chose Answer
-    //OUTPUT: 
+    //OUTPUT: SVT - Skip Vote Time
     //We need to accept the users answer choice and store it
     //TODO: Decide how we tell the server about this and handel showing who voted for what, also we should make sure users don't vote for their own answers
     socket.on('VA', function(data){
         for(var k = 0; k < clients.length; k++){
             if(socket.id == clients[k].id){
                 clients[k].chosenAnswer = data.choice;
+                var weCanSkipTime = true;
+                //Loop through all the clients and check to see if they all have picked answers
+                for(var x = 0; x < clients.length; x++){
+                    if(clients[x].room == clients[k].room && !clients[x].isHost && clients[x].chosenAnswer == ''){
+                        //Our client is in the same room and isn't a host and hasn't voted yet
+                        weCanSkipTime = false;
+                    }
+
+                    //If we reach the end of the clients and we can still skip time we will tell the host to skip
+                    if(x == clients.length - 1 && weCanSkipTime){
+                        socket.broadcast.to(clients[k].room).emit('SVT');
+                    }
+                }
             }
         }
     });
