@@ -74,7 +74,7 @@ io.sockets.on('connection', function(socket){
             if(socket.id == clients[k].id){
                 clients[k].room = data.room.toLowerCase();
                 clients[k].name = data.name;
-                clients[k].points = 0;
+                clients[k].score = 0;
                 clients[k].finishedDrawing = false;
                 clients[k].isHost = false;
                 clients[k].answer = '';
@@ -133,6 +133,7 @@ io.sockets.on('connection', function(socket){
     //OUTPUT: YTL - You're To Late
     //We need to send a message to everyone who hasn't answered
     socket.on('SAA', function(data){
+        console.log("[SERVER] A player was to slow, we need to tell them.");
         for(var k = 0; k < clients.length; k++){
             if(socket.id == clients[k].id){
                 for(var x = 0; x < clients.length; x++){
@@ -158,6 +159,7 @@ io.sockets.on('connection', function(socket){
                         if(clientXanswer == inputAnswer){
                             //clients answer is the same as
                             socket.emit('BUT');
+                            console.log("[SERVER] A player input the same title as another player.");
                             return;
                         }
                     }
@@ -168,16 +170,19 @@ io.sockets.on('connection', function(socket){
                         if(data.title.toLowerCase() != clients[v].currentAnswer.toLowerCase()){
                             //client has unique answer, save it
                             socket.emit('GUT');
+                            console.log("[SERVER] New title, it wasn't a copy or correct, we accepted it.");
                             clients[k].answer = data.title;
                             clients[v].numOfAnswers++;
                             if(clients[v].numOfAnswers == clients[v].numOfPlayers - 1){
                                 //all users answered
                                 io.to(clients[v].id).emit('APA');
+                                console.log("[SERVER] All players have input their titles.");
                             }
                             return;
                         }else{
                             //client got the right answer
                             socket.emit('BUT');
+                            console.log("[SERVER] A player input the correct title.");
                             return;
                         }
                     }
@@ -369,6 +374,7 @@ io.sockets.on('connection', function(socket){
                     if(x == clients.length - 1){
                         //we are at the end of the loop, we need to tell the host to update scores
                         socket.emit('UPS');
+                        console.log("[SERVER] We have sent all the votes to the host in room " + clients[k].room);
                     }
                 }
             }
@@ -379,21 +385,24 @@ io.sockets.on('connection', function(socket){
     //OUTPUT: SVT - Skip Vote Time
     //We need to accept the users answer choice and store it
     //TODO: Decide how we tell the server about this and handel showing who voted for what, also we should make sure users don't vote for their own answers
-    socket.on('VA', function(data){
+    socket.on('UCA', function(data){
         for(var k = 0; k < clients.length; k++){
             if(socket.id == clients[k].id){
                 clients[k].chosenAnswer = data.choice;
+                console.log("[SERVER] New player voted, checking to see if everyone has voted.");
                 var weCanSkipTime = true;
                 //Loop through all the clients and check to see if they all have picked answers
                 for(var x = 0; x < clients.length; x++){
-                    if(clients[x].room == clients[k].room && !clients[x].isHost && clients[x].chosenAnswer == ''){
+                    if(clients[x].room == clients[k].room && !clients[x].isHost && clients[x].chosenAnswer == '' && !clients[x].shownDrawing){
                         //Our client is in the same room and isn't a host and hasn't voted yet
                         weCanSkipTime = false;
+                        console.log("[SERVER] Someone hasn't voted, it's player " + clients[x].name);
                     }
 
                     //If we reach the end of the clients and we can still skip time we will tell the host to skip
                     if(x == clients.length - 1 && weCanSkipTime){
                         socket.broadcast.to(clients[k].room).emit('SVT');
+                        console.log("[SERVER] All players in room " + clients[k].room + " have voted, we will skip ahead.");
                     }
                 }
             }
@@ -436,7 +445,10 @@ io.sockets.on('connection', function(socket){
                     if(clients[x].room == clients[k].room){
                         //clients are in the same room, check to see if they need to be punished
                         if(!clients[x].finishedDrawing && data.penality != 'kick' && !clients[x].isHost){
-                            clients[x].points -= data.penality;
+                            socket.emit('PLP', {
+                                playerNum: clients[x].playerNum,
+                                penality: data.penality
+                            });
                             console.log("[SERVER] " + clients[x].name + " is losing points!");
                         }
                         else if(!clients[x].finishedDrawing && data.penality == 'kick' && !clients[x].isHost){

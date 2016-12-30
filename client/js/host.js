@@ -29,69 +29,6 @@ var player18Avatar = new Image();
 var player19Avatar = new Image();
 var player20Avatar = new Image();
 
-var player1Answer = "";
-var player2Answer = "";
-var player3Answer = "";
-var player4Answer = "";
-var player5Answer = "";
-var player6Answer = "";
-var player7Answer = "";
-var player8Answer = "";
-var player9Answer = "";
-var player10Answer = "";
-var player11Answer = "";
-var player12Answer = "";
-var player13Answer = "";
-var player14Answer = "";
-var player15Answer = "";
-var player16Answer = "";
-var player17Answer = "";
-var player18Answer = "";
-var player19Answer = "";
-var player20Answer = "";
-
-var player1Name;
-var player2Name;
-var player3Name;
-var player4Name;
-var player5Name;
-var player6Name;
-var player7Name;
-var player8Name;
-var player9Name;
-var player10Name;
-var player11Name;
-var player12Name;
-var player13Name;
-var player14Name;
-var player15Name;
-var player16Name;
-var player17Name;
-var player18Name;
-var player19Name;
-var player20Name;
-
-var player1Vote;
-var player2Vote;
-var player3Vote;
-var player4Vote;
-var player5Vote;
-var player6Vote;
-var player7Vote;
-var player8Vote;
-var player9Vote;
-var player10Vote;
-var player11Vote;
-var player12Vote;
-var player13Vote;
-var player14Vote;
-var player15Vote;
-var player16Vote;
-var player17Vote;
-var player18Vote;
-var player19Vote;
-var player20Vote;
-
 var players = [];
 
 var currentDrawing = new Image();
@@ -236,278 +173,38 @@ socket.on('PAF', function(){
 //All players have voted, we can stop the timer stuff
 socket.on('SVT', function(){
     socket.emit('RPV');
+    doVoteTime = false;
+    $('#input-countdown').hide();
 });
 
 socket.on('UPS', function(){
     UpdatePlayerScores();
 });
 
-socket.on('NPV', function(data){ 
-    if(data.playerNum == 1){
-        player1Vote == data.vote;
-    }
-    else if(data.playerNum == 2){
-        player2Vote == data.vote;
-    }
-    else if(data.playerNum == 3){
-        player3Vote == data.vote;
-    }
-    else if(data.playerNum == 4){
-        player4Vote == data.vote;
-    }
-    else if(data.playerNum == 5){
-        player5Vote == data.vote;
-    }
-    else if(data.playerNum == 6){
-        player6Vote == data.vote;
-    }
-    else if(data.playerNum == 7){
-        player7Vote == data.vote;
-    }
-    else if(data.playerNum == 8){
-        player8Vote == data.vote;
-    }
-    else if(data.playerNum == 9){
-        player9Vote == data.vote;
-    }
-    else if(data.playerNum == 10){
-        player10Vote == data.vote;
-    }
-    else if(data.playerNum == 11){
-        player11Vote == data.vote;
-    }
-    else if(data.playerNum == 12){
-        player12Vote == data.vote;
-    }
-    else if(data.playerNum == 13){
-        player13Vote == data.vote;
-    }
-    else if(data.playerNum == 14){
-        player14Vote == data.vote;
-    }
-    else if(data.playerNum == 15){
-        player15Vote == data.vote;
-    }
-    else if(data.playerNum == 16){
-        player16Vote == data.vote;
-    }
-    else if(data.playerNum == 17){
-        player17Vote == data.vote;
-    }
-    else if(data.playerNum == 18){
-        player18Vote == data.vote;
-    }
-    else if(data.playerNum == 19){
-        player19Vote == data.vote;
-    }
-    else if(data.playerNum == 20){
-        player20Vote == data.vote;
+socket.on('NPV', function(data){
+    for(var i = 0; i < players.length; i++){
+        if(data.playerNum == players[i].playerNum){
+            players[i].vote = data.vote;
+        }
     }
 });
 
 socket.on('PAA', function(data){
-    if(data.playerNum == 1){
-        currentAnswer = data.answer;
-        player1Answer = data.answer;
-        playersAnswers.push(player1Answer);
-    }
-    else if(data.playerNum == 2){
-        currentAnswer = data.answer;
-         player2Answer = data.answer;
-        playersAnswers.push(player2Answer);
-    }
-    else if(data.playerNum == 3){
-        currentAnswer = data.answer;
-         player3Answer = data.answer;
-        playersAnswers.push(player3Answer);
-    }
-    else if(data.playerNum == 4){
-        currentAnswer = data.answer;
-         player4Answer = data.answer;
-        playersAnswers.push(player4Answer);
-    }
-    else if(data.playerNum == 5){
-        currentAnswer = data.answer;
-         player5Answer = data.answer;
-        playersAnswers.push(player5Answer);
-    }
-    else if(data.playerNum == 6){
-        currentAnswer = data.answer;
-         player6Answer = data.answer;
-        playersAnswers.push(player6Answer);
-    }
-    else if(data.playerNum == 7){
-        currentAnswer = data.answer;
-         player7Answer = data.answer;
-        playersAnswers.push(player7Answer);
-    }
-    else if(data.playerNum == 8){
-        currentAnswer = data.answer;
-         player8Answer = data.answer;
-        playersAnswers.push(player8Answer);
-    }
-    else if(data.playerNum == 9){
-        currentAnswer = data.answer;
-         player9Answer = data.answer;
-        playersAnswers.push(player9Answer);
-    }
-    else if(data.playerNum == 10){
-        currentAnswer = data.answer;
-         player10Answer = data.answer;
-        playersAnswers.push(player10Answer);
-    }
-    else if(data.playerNum == 11){
-        currentAnswer = data.answer;
-         player11Answer = data.answer;
-        playersAnswers.push(player11Answer);
-    }
-    else if(data.playerNum == 12){
-        currentAnswer = data.answer;
-         player12Answer = data.answer;
-        playersAnswers.push(player12Answer);
-    }
-    else if(data.playerNum == 13){
-        currentAnswer = data.answer;
-         player13Answer = data.answer;
-        playersAnswers.push(player13Answer);
-    }
-    else if(data.playerNum == 14){
-        currentAnswer = data.answer;
-         player14Answer = data.answer;
-        playersAnswers.push(player14Answer);
-    }
-    else if(data.playerNum == 15){
-        currentAnswer = data.answer;
-         player15Answer = data.answer;
-        playersAnswers.push(player15Answer);
-    }
-    else if(data.playerNum == 16){
-        currentAnswer = data.answer;
-         player16Answer = data.answer;
-        playersAnswers.push(player16Answer);
-    }
-    else if(data.playerNum == 17){
-        currentAnswer = data.answer;
-         player17Answer = data.answer;
-        playersAnswers.push(player17Answer);
-    }
-    else if(data.playerNum == 18){
-        currentAnswer = data.answer;
-         player18Answer = data.answer;
-        playersAnswers.push(player18Answer);
-    }
-    else if(data.playerNum == 19){
-        currentAnswer = data.answer;
-         player19Answer = data.answer;
-        playersAnswers.push(player19Answer);
-    }
-    else if(data.playerNum == 20){
-        currentAnswer = data.answer;
-         player20Answer = data.answer;
-        playersAnswers.push(player20Answer);
+    currentAnswer = data.answer;
+    for(var i = 0; i < players.length; i++){
+        if(data.playerNum == players[i].playerNum){
+            players[i].answer = data.answer;
+            playersAnswers.push(players[i].answer);
+        }
     }
 });
 
 socket.on('PA', function(data){
-    if(data.playerNum == 1){
-        player1Answer = data.answer;
-        player1Name = data.name;
-        playersAnswers.push(player1Answer);
-    }
-    else if(data.playerNum == 2){
-        player2Answer = data.answer;
-        player2Name = data.name;
-        playersAnswers.push(player2Answer);
-    }
-    else if(data.playerNum == 3){
-        player3Answer = data.answer;
-        player3Name = data.name;
-        playersAnswers.push(player3Answer);
-    }
-    else if(data.playerNum == 4){
-        player4Answer = data.answer;
-        player4Name = data.name;
-        playersAnswers.push(player4Answer);
-    }
-    else if(data.playerNum == 5){
-        player5Answer = data.answer;
-        player5Name = data.name;
-        playersAnswers.push(player5Answer);
-    }
-    else if(data.playerNum == 6){
-        player6Answer = data.answer;
-        player6Name = data.name;
-        playersAnswers.push(player6Answer);
-    }
-    else if(data.playerNum == 7){
-        player7Answer = data.answer;
-        player7Name = data.name;
-        playersAnswers.push(player7Answer);
-    }
-    else if(data.playerNum == 8){
-        player8Answer = data.answer;
-        player8Name = data.name;
-        playersAnswers.push(player8Answer);
-    }
-    else if(data.playerNum == 9){
-        player9Answer = data.answer;
-        player9Name = data.name;
-        playersAnswers.push(player9Answer);
-    }
-    else if(data.playerNum == 10){
-        player10Answer = data.answer;
-        player10Name = data.name;
-        playersAnswers.push(player10Answer);
-    }
-    else if(data.playerNum == 11){
-        player11Answer = data.answer;
-        player11Name = data.name;
-        playersAnswers.push(player11Answer);
-    }
-    else if(data.playerNum == 12){
-        player12Answer = data.answer;
-        player12Name = data.name;
-        playersAnswers.push(player12Answer);
-    }
-    else if(data.playerNum == 13){
-        player13Answer = data.answer;
-        player13Name = data.name;
-        playersAnswers.push(player13Answer);
-    }
-    else if(data.playerNum == 14){
-        player14Answer = data.answer;
-        player14Name = data.name;
-        playersAnswers.push(player14Answer);
-    }
-    else if(data.playerNum == 15){
-        player15Answer = data.answer;
-        player15Name = data.name;
-        playersAnswers.push(player15Answer);
-    }
-    else if(data.playerNum == 16){
-        player16Answer = data.answer;
-        player16Name = data.name;
-        playersAnswers.push(player16Answer);
-    }
-    else if(data.playerNum == 17){
-        player17Answer = data.answer;
-        player17Name = data.name;
-        playersAnswers.push(player17Answer);
-    }
-    else if(data.playerNum == 18){
-        player18Answer = data.answer;
-        player18Name = data.name;
-        playersAnswers.push(player18Answer);
-    }
-    else if(data.playerNum == 19){
-        player19Answer = data.answer;
-        player19Name = data.name;
-        playersAnswers.push(player19Answer);
-    }
-    else if(data.playerNum == 20){
-        player20Answer = data.answer;
-        player20Name = data.name;
-        playersAnswers.push(player20Answer);
+    for(var i = 0; i < players.length; i++){
+        if(data.playerNum == players[i].playerNum){
+            players[i].answer = data.answer;
+            playersAnswers.push(players[i].answer);
+        }
     }
 });
 
@@ -532,7 +229,29 @@ socket.on('DFH', function(data){
     }
 });
 
+socket.on('PLP', function(data){
+    for(var i = 0; i < players.length; i++){
+        if(data.playerNum == players[i].playerNum){
+            players[i].score -= data.penality;
+        }
+    }
+});
+
+//New player joined the room
 socket.on('NUA', function(data){
+    
+    var newUser = {
+        avatar: data.drawing,
+        playerNum: data.playerNum,
+        color: GetUsersColor(data.playerNum),
+        name: data.username.toUpperCase(),
+        score: 0,
+        answer: '',
+        vote: ''
+    };
+    
+    players.push(newUser);
+    
     if(data.playerNum == 1){
         player1Avatar.src = data.drawing;
     
@@ -719,20 +438,22 @@ socket.on('NUA', function(data){
 //If a player voted for their answer we will give them points
 //If they got the right answer they will get a bunch of points
 function UpdatePlayerScores(){
-    for(var x = 0; x < numOfPlayers; x++){
-        var playerNum = x + 1;
-        var currentPlayersAnswer = "player" + playerNum + "Answer";
-        
-        for(var i = 0; i < numOfPlayers; i++){
-            var player2Num = i + 1;
-            var playersVote = "player" + player2Num + "Vote";
-            
-            //If it isn't the same player and the answers match the current player gets points
-            if(i != x && playersVote == currentPlayersAnswer){
-                
+    for(var cp = 0; cp < players.length; cp++){
+        //CP is our current player
+        //OP is our other players
+        for(var op = 0; op < players.length; op++){
+            if(players[cp].answer == players[op].vote && cp != op){
+                //This means other players voted for this players answer
+                if(players[cp].answer == currentAnswer){
+                    //this is the correct answer
+                    players[cp].score += 1000;
+                    players[op].score += 1000;
+                }else{
+                    //this is a players lie
+                    players[cp].score += 500;
+                }
             }
         }
-        
     }
 }
 
@@ -741,7 +462,7 @@ function PositionPlayersAnswers(){
     var mixedPlayers = shuffle(playersAnswers);
     
     //Then we will loop though the players and position them randomly based on the shuffled array
-    for(var k = 0; k < numOfPlayers; k++){
+    for(var k = 0; k < playersAnswers.length; k++){
         var posNum = k + 1;
         $('#pos' + posNum).show();
         $('#pos' + posNum).text(mixedPlayers[k]);
@@ -885,6 +606,7 @@ function update(){
             doAnswerTime = false;
             $('#input-countdown').hide();
             socket.emit('SAA');
+            socket.emit('RPA');
         }
         
     }

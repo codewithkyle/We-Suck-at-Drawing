@@ -263,6 +263,7 @@ h2{
     vertical-align: middle;
     position: absolute;
     overflow: visible;
+    border: 2px solid #181818;
 }
 
 /* LEFT SIDE */

@@ -10,6 +10,7 @@ var playerNumber = 0;
 var currentNumberOfAnswers = 0;
 var yourAnswer = '';
 var youVoted = false;
+var youCanVote = true;
 
 ////////////////////////////////////////////////////////////////////////////JQUERY STUFF\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 $('#play').hide();
@@ -245,8 +246,10 @@ socket.on('TPA', function(data){
     if(playerNumber != data.number){
         $('#input-text').show();
         $('#prompt').hide();
+        youCanVote = true;
     }else{
         $('#prompt').text("you drew this, deal with it.");
+        youCanVote = false;
     }
 });
 
@@ -278,91 +281,93 @@ socket.on('SAV', function(){
 
 //The server just sent us a new voting option, we should show it to the player
 socket.on('NVO', function(data){
-    $('#prompt').hide();
-    $('#input-answers').show();
-    
-    currentNumberOfAnswers++;
-    
-    //This is show the buttons and load the answer text into them
-    if(currentNumberOfAnswers == 1 && data.possibleAnswer != yourAnswer){
-        $('#ans1').show();
-        $('#ans1').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 2 && data.possibleAnswer != yourAnswer){
-        $('#ans2').show();
-        $('#ans2').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 3 && data.possibleAnswer != yourAnswer){
-        $('#ans3').show();
-        $('#ans3').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 4 && data.possibleAnswer != yourAnswer){
-        $('#ans4').show();
-        $('#ans4').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 5 && data.possibleAnswer != yourAnswer){
-        $('#ans5').show();
-        $('#ans5').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 6 && data.possibleAnswer != yourAnswer){
-        $('#ans6').show();
-        $('#ans6').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 7 && data.possibleAnswer != yourAnswer){
-        $('#ans7').show();
-        $('#ans7').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 8 && data.possibleAnswer != yourAnswer){
-        $('#ans8').show();
-        $('#ans8').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 9 && data.possibleAnswer != yourAnswer){
-        $('#ans9').show();
-        $('#ans9').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 10 && data.possibleAnswer != yourAnswer){
-        $('#ans10').show();
-        $('#ans10').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 11 && data.possibleAnswer != yourAnswer){
-        $('#ans11').show();
-        $('#ans11').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 12 && data.possibleAnswer != yourAnswer){
-        $('#ans12').show();
-        $('#ans12').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 13 && data.possibleAnswer != yourAnswer){
-        $('#ans13').show();
-        $('#ans13').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 14 && data.possibleAnswer != yourAnswer){
-        $('#ans14').show();
-        $('#ans14').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 15 && data.possibleAnswer != yourAnswer){
-        $('#ans15').show();
-        $('#ans15').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 16 && data.possibleAnswer != yourAnswer){
-        $('#ans16').show();
-        $('#ans16').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 17 && data.possibleAnswer != yourAnswer){
-        $('#ans17').show();
-        $('#ans17').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 18 && data.possibleAnswer != yourAnswer){
-        $('#ans18').show();
-        $('#ans18').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 19 && data.possibleAnswer != yourAnswer){
-        $('#ans19').show();
-        $('#ans19').text(data.possibleAnswer);
-    }
-    else if(currentNumberOfAnswers == 20 && data.possibleAnswer != yourAnswer){
-        $('#ans20').show();
-        $('#ans20').text(data.possibleAnswer);
+    if(youCanVote){
+        $('#prompt').hide();
+        $('#input-answers').show();
+        
+        currentNumberOfAnswers++;
+        
+        //This is show the buttons and load the answer text into them
+        if(currentNumberOfAnswers == 1 && data.possibleAnswer != yourAnswer){
+            $('#ans1').show();
+            $('#ans1').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 2 && data.possibleAnswer != yourAnswer){
+            $('#ans2').show();
+            $('#ans2').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 3 && data.possibleAnswer != yourAnswer){
+            $('#ans3').show();
+            $('#ans3').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 4 && data.possibleAnswer != yourAnswer){
+            $('#ans4').show();
+            $('#ans4').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 5 && data.possibleAnswer != yourAnswer){
+            $('#ans5').show();
+            $('#ans5').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 6 && data.possibleAnswer != yourAnswer){
+            $('#ans6').show();
+            $('#ans6').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 7 && data.possibleAnswer != yourAnswer){
+            $('#ans7').show();
+            $('#ans7').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 8 && data.possibleAnswer != yourAnswer){
+            $('#ans8').show();
+            $('#ans8').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 9 && data.possibleAnswer != yourAnswer){
+            $('#ans9').show();
+            $('#ans9').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 10 && data.possibleAnswer != yourAnswer){
+            $('#ans10').show();
+            $('#ans10').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 11 && data.possibleAnswer != yourAnswer){
+            $('#ans11').show();
+            $('#ans11').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 12 && data.possibleAnswer != yourAnswer){
+            $('#ans12').show();
+            $('#ans12').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 13 && data.possibleAnswer != yourAnswer){
+            $('#ans13').show();
+            $('#ans13').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 14 && data.possibleAnswer != yourAnswer){
+            $('#ans14').show();
+            $('#ans14').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 15 && data.possibleAnswer != yourAnswer){
+            $('#ans15').show();
+            $('#ans15').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 16 && data.possibleAnswer != yourAnswer){
+            $('#ans16').show();
+            $('#ans16').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 17 && data.possibleAnswer != yourAnswer){
+            $('#ans17').show();
+            $('#ans17').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 18 && data.possibleAnswer != yourAnswer){
+            $('#ans18').show();
+            $('#ans18').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 19 && data.possibleAnswer != yourAnswer){
+            $('#ans19').show();
+            $('#ans19').text(data.possibleAnswer);
+        }
+        else if(currentNumberOfAnswers == 20 && data.possibleAnswer != yourAnswer){
+            $('#ans20').show();
+            $('#ans20').text(data.possibleAnswer);
+        }
     }
     
 });
