@@ -178,6 +178,7 @@ socket.on('SVT', function(){
 });
 
 socket.on('UPS', function(){
+    ShowCorrectAnswer();
     UpdatePlayerScores();
 });
 
@@ -473,6 +474,20 @@ function PositionPlayersAnswers(){
     $('#answer-display').show();
     doVoteTime = true;
     $('#input-countdown').show();
+}
+
+function ShowCorrectAnswer(){
+    for(var k = 0; k < playersAnswers.length; k++){
+        var posNum = k + 1;
+        var possibleAnswer = $('#pos' + posNum).text();
+        if(possibleAnswer == currentAnswer){
+            $('#pos' + posNum).css('color', '#15e04c');
+            $('#drawing-title').text(currentAnswer);
+            $('#drawing-title').css('color', '#15e04c');
+        }else{
+            $('#pos' + posNum).css('color', '#FE4365');
+        }
+    }
 }
     
 function shuffle(o) {
