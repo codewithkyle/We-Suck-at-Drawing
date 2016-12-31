@@ -355,6 +355,19 @@ io.sockets.on('connection', function(socket){
         }
     });
 
+    //SWP - Send Writing Prompts
+    //Once the host tells us to send the propmpts we will call the writing prompt funcion
+    //we will pass in the room code and the rooms family friendly setting
+    socket.on('SWP', function(data){
+        for(var k = 0; k < clients.length; k++){
+            if(socket.id == clients[k].id){
+                isFamilyFriendly = clients[k].familyFriendly;
+                hostRoom = clients[k].room;
+                SendWritingPrompts(hostRoom, isFamilyFriendly);
+            }
+        }
+    });
+
     //RPV - Request Player Votes
     //OUTPUT: NPV - New Player Vote
     //Loop through players and return their votes and player numbers
@@ -367,7 +380,7 @@ io.sockets.on('connection', function(socket){
                     if(clients[x].room == clients[k].room){
                         socket.emit('NPV', {
                             playerNum: clients[x].playerNum,
-                            vote: clients[k].chosenAnswer
+                            vote: clients[x].chosenAnswer
                         });
                     }
 
@@ -389,6 +402,7 @@ io.sockets.on('connection', function(socket){
         for(var k = 0; k < clients.length; k++){
             if(socket.id == clients[k].id){
                 clients[k].chosenAnswer = data.choice;
+                //console.log("Players vote was for " + data.choice);
                 console.log("[SERVER] New player voted, checking to see if everyone has voted.");
                 var weCanSkipTime = true;
                 //Loop through all the clients and check to see if they all have picked answers
@@ -418,15 +432,13 @@ io.sockets.on('connection', function(socket){
         var hostRoom;
         for(var k = 0; k < clients.length; k++){
             if(socket.id == clients[k].id){
-                isFamilyFriendly = clients[k].familyFriendly;
-                hostRoom = clients[k].room;
                 if(clients[k].numOfPlayers >= 3){
                     console.log('[SERVER] Host ' + clients[k].room + " is starting a game.");
                     socket.emit('GTG', {
                         numOfPlayers: clients[k].numOfPlayers
                     });
                     clients[k].gameStarted = true;
-                    SendWritingPrompts(hostRoom, isFamilyFriendly);
+                    
                 }else{
                     console.log('[SERVER] Host ' + clients[k].room + " is trying to start a game but they don't have enough players.");
                 }
