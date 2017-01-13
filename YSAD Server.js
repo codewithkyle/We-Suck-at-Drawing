@@ -133,12 +133,12 @@ io.sockets.on('connection', function(socket){
     //OUTPUT: YTL - You're To Late
     //We need to send a message to everyone who hasn't answered
     socket.on('SAA', function(data){
-        console.log("[SERVER] A player was to slow, we need to tell them.");
         for(var k = 0; k < clients.length; k++){
             if(socket.id == clients[k].id){
                 for(var x = 0; x < clients.length; x++){
                     if(clients[x].room == clients[k].room && clients[x].answer == '' && clients[k].currentAnswer != clients[x].prompt){
                         io.to(clients[x].id).emit('YTL');
+                        console.log("[GAME: " + clients[k].room + "] " + clients[x].name + " was to slow, we need to tell them.");
                     }
                 }
             }
@@ -159,7 +159,7 @@ io.sockets.on('connection', function(socket){
                         if(clientXanswer == inputAnswer){
                             //clients answer is the same as
                             socket.emit('BUT');
-                            console.log("[SERVER] A player input the same title as another player.");
+                            console.log("[GAME " + clients[k].room + "] A player input the same title as another player.");
                             return;
                         }
                     }
@@ -170,19 +170,19 @@ io.sockets.on('connection', function(socket){
                         if(data.title.toLowerCase() != clients[v].currentAnswer.toLowerCase()){
                             //client has unique answer, save it
                             socket.emit('GUT');
-                            console.log("[SERVER] New title, it wasn't a copy or correct, we accepted it.");
+                            console.log("[GAME " + clients[k].room + "] New title, it wasn't a copy or correct, we accepted it.");
                             clients[k].answer = data.title;
                             clients[v].numOfAnswers++;
                             if(clients[v].numOfAnswers == clients[v].numOfPlayers - 1){
                                 //all users answered
                                 io.to(clients[v].id).emit('APA');
-                                console.log("[SERVER] All players have input their titles.");
+                                console.log("[GAME " + clients[k].room + "] All players have input their titles.");
                             }
                             return;
                         }else{
                             //client got the right answer
                             socket.emit('BUT');
-                            console.log("[SERVER] A player input the correct title.");
+                            console.log("[GAME " + clients[k].room + "] A player input the correct title.");
                             return;
                         }
                     }
@@ -300,19 +300,19 @@ io.sockets.on('connection', function(socket){
                 clients[k].drawing = data.drawing;
                 clients[k].finishedDrawing = true;
                 clients[k].shownDrawing = false;
-                console.log("[SERVER] Client in room " + clients[k].room + " sent in their drawing.");
+                console.log("[GAME " + clients[k].room + "] Client in room " + clients[k].room + " sent in their drawing.");
 
                 for(var x = 0; x < clients.length; x++){
                     if(clients[x].room == clients[k].room && clients[x].isHost){
                         clients[x].playerNumFinishedDrawing++;
-                        console.log("[SERVER] Checking to see if this is the last player.");
+                        console.log("[GAME " + clients[k].room + "] Checking to see if this is the last player.");
                         if(clients[x].playerNumFinishedDrawing == clients[x].numOfPlayers){
                             //The last player just sent in their drawing
                             //Send the Finished Drawing message to the host
                             io.to(clients[x].id).emit('FD');
-                            console.log("[SERVER] All the clients in room " + clients[x].room + " have finished their drawings");
+                            console.log("[GAME " + clients[k].room + "] All the clients in room " + clients[x].room + " have finished their drawings");
                         }else{
-                            console.log("[SERVER] It wasn't the last player, only " + clients[x].playerNumFinishedDrawing + "/" + clients[x].numOfPlayers + " have finished drawing.");
+                            console.log("[GAME " + clients[k].room + "] It wasn't the last player, only " + clients[x].playerNumFinishedDrawing + "/" + clients[x].numOfPlayers + " have finished drawing.");
                         }
                     }
                 }
@@ -326,7 +326,7 @@ io.sockets.on('connection', function(socket){
         for(var k = 0; k < clients.length; k++){
             if(socket.id == clients[k].id){
                 clients[k].familyFriendly = data.toggle;
-                console.log('[SERVER] The host in room ' + clients[k].room + ' just set their Family Friendly status to ' + clients[k].familyFriendly);
+                console.log('[GAME ' + clients[k].room + '] The host in room ' + clients[k].room + ' just set their Family Friendly status to ' + clients[k].familyFriendly);
             }
         }
     });
@@ -387,7 +387,7 @@ io.sockets.on('connection', function(socket){
                     if(x == clients.length - 1){
                         //we are at the end of the loop, we need to tell the host to update scores
                         socket.emit('UPS');
-                        console.log("[SERVER] We have sent all the votes to the host in room " + clients[k].room);
+                        console.log("[GAME " + clients[k].room + "] We have sent all the votes to the host in room " + clients[k].room);
                     }
                 }
             }
@@ -403,20 +403,20 @@ io.sockets.on('connection', function(socket){
             if(socket.id == clients[k].id){
                 clients[k].chosenAnswer = data.choice;
                 //console.log("Players vote was for " + data.choice);
-                console.log("[SERVER] New player voted, checking to see if everyone has voted.");
+                console.log("[GAME " + clients[k].room + "] New player voted, checking to see if everyone has voted.");
                 var weCanSkipTime = true;
                 //Loop through all the clients and check to see if they all have picked answers
                 for(var x = 0; x < clients.length; x++){
                     if(clients[x].room == clients[k].room && !clients[x].isHost && clients[x].chosenAnswer == '' && !clients[x].shownDrawing){
                         //Our client is in the same room and isn't a host and hasn't voted yet
                         weCanSkipTime = false;
-                        console.log("[SERVER] Someone hasn't voted, it's player " + clients[x].name);
+                        console.log("[GAME " + clients[k].room + "] Someone hasn't voted, it's player " + clients[x].name);
                     }
 
                     //If we reach the end of the clients and we can still skip time we will tell the host to skip
                     if(x == clients.length - 1 && weCanSkipTime){
                         socket.broadcast.to(clients[k].room).emit('SVT');
-                        console.log("[SERVER] All players in room " + clients[k].room + " have voted, we will skip ahead.");
+                        console.log("[GAME " + clients[k].room + "] All players in room " + clients[k].room + " have voted, we will skip ahead.");
                     }
                 }
             }
@@ -433,14 +433,14 @@ io.sockets.on('connection', function(socket){
         for(var k = 0; k < clients.length; k++){
             if(socket.id == clients[k].id){
                 if(clients[k].numOfPlayers >= 3){
-                    console.log('[SERVER] Host ' + clients[k].room + " is starting a game.");
+                    console.log('[GAME " + clients[k].room + "] Host ' + clients[k].room + " is starting a game.");
                     socket.emit('GTG', {
                         numOfPlayers: clients[k].numOfPlayers
                     });
                     clients[k].gameStarted = true;
                     
                 }else{
-                    console.log('[SERVER] Host ' + clients[k].room + " is trying to start a game but they don't have enough players.");
+                    console.log('[GAME " + clients[k].room + "] Host ' + clients[k].room + " is trying to start a game but they don't have enough players.");
                 }
             }
         }
@@ -461,12 +461,12 @@ io.sockets.on('connection', function(socket){
                                 playerNum: clients[x].playerNum,
                                 penality: data.penality
                             });
-                            console.log("[SERVER] " + clients[x].name + " is losing points!");
+                            console.log("[GAME " + clients[k].room + "] " + clients[x].name + " is losing points!");
                         }
                         else if(!clients[x].finishedDrawing && data.penality == 'kick' && !clients[x].isHost){
                             clients[x].room = 'kicked';
                             io.to(clients[x].id).emit('K');
-                            console.log("[SERVER] " + clients[x].name + " is kicked from the room.");
+                            console.log("[GAME " + clients[k].room + "] " + clients[x].name + " is kicked from the room.");
                         }
                     }
                 }
@@ -486,7 +486,7 @@ function SendWritingPrompts(hostRoom, isFamilyFriendly){
                 if(isFamilyFriendly){
                     var generatedPrompt = GenerateNewSFWPrompt();
                     clients[x].prompt = generatedPrompt;
-                    console.log("[SERVER] We are sending " + generatedPrompt + " to " + clients[x].name);
+                    console.log("[GAME " + clients[k].room + "] We are sending " + generatedPrompt + " to " + clients[x].name);
                     //If family friendly is true we need to send them a prompt from the SFW array
                     io.to(clients[x].id).emit('WP', {
                         prompt: generatedPrompt
