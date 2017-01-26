@@ -1,12 +1,12 @@
 {
-    "name": "RFPLotto",
-    "description": "A clan based lottery for my friends.",
-    "version": "0.0.1",
+    "name": "We-Suck-at-Drawing",
+    "description": "A web based Drawful clone.",
+    "version": "0.1.2",
     "private": true,
     "dependencies": {
         "socket.io": "x",
         "express": "x",
-        "mysql": "x",
-        "errorhandler": "x"
+        "errorhandler": "x",
+        "xo": "x"
     }
 }
