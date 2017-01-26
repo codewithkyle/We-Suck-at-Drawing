@@ -31,13 +31,16 @@ To launch the server just run the server.js file with nodejs.
 ### Client
 #### Host
 To access the web page open a browser and go to localhost:1234, the host device will generate a room code.
+
 ![Imgur](http://i.imgur.com/7X995Ap.png)
 
 #### Players
 The players will type in the IP/web address provided by the host, once there they can enter their usernames and the hosts room code.
+
 ![Imgur](http://i.imgur.com/L67vH3K.png)
 
 They they will create their avatars.
+
 ![Imgur](http://i.imgur.com/A3A3RFP.png)
 
 Once everyone is ready to play someone has to click the 'Ready' button on the host and everything else will explain itself.
