@@ -4,7 +4,6 @@
 <a href="https://travis-ci.org/AndrewK9/We-Suck-at-Drawing"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat-square"/></a>
 <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/platform-Node.js-brightgreen.svg?style=flat-square"/></a>
 <a href="#install"><img src="https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg?style=flat-square"/></a>
-<a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code%20style-XO-5ed9c7.svg?style=flat-square"/></a>
 <a href="https://github.com/AndrewK9/We-Suck-at-Drawing/issues"><img src="https://img.shields.io/badge/issues-0%20open-brightgreen.svg?style=flat-square"/></a>
 <a href="https://github.com/AndrewK9/We-Suck-at-Drawing/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgray.svg?style=flat-square"/></a>
 </p>
@@ -14,7 +13,6 @@
 1. [Install](#install)
 1. [Usage](#usage)
 1. [Team](#team)
-1. [Code Style](#code-style)
 1. [Contribute](#contribute)
 1. [License](#license)
 
@@ -52,9 +50,6 @@ Kyle Andrews |
 |-----|
 | [Email](andrewskyle28@gmail.com) |
 | @andrewk9 |
-
-## Code Style
-This project is following the [XO](https://github.com/sindresorhus/xo) style guide.
 
 
 ## Contribute
