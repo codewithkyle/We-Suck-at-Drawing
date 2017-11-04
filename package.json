@@ -6,7 +6,6 @@
     "dependencies": {
         "socket.io": "x",
         "express": "x",
-        "errorhandler": "x",
-        "xo": "x"
+        "errorhandler": "x"
     }
 }
