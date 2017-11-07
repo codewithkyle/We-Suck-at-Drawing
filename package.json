@@ -7,24 +7,5 @@
         "socket.io": "x",
         "express": "x",
         "errorhandler": "x"
-    },
-    "devDependencies": {
-		"autoprefixer": "^6.6.1",
-		"bulma": "^0.4.0",
-		"css-mqpacker": "^5.0.1",
-		"cssnano": "^3.10.0",
-		"grunt": "~1.0.1",
-		"grunt-browser-sync": "^2.2.0",
-		"grunt-contrib-sass": "~1.0.0",
-		"grunt-contrib-jshint": "~1.1.0",
-		"grunt-contrib-uglify": "~2.0.0",
-		"grunt-contrib-watch": "~1.0.0",
-		"grunt-newer": "^1.2.0",
-		"grunt-postcss": "^0.8.0",
-		"grunt-svgmin": "^4.0.0",
-		"jshint-stylish": "^2.2.1",
-		"load-grunt-tasks": "^3.5.2",
-		"pixrem": "^3.0.2",
-		"time-grunt": "^1.4.0"
-	}
+    }
 }

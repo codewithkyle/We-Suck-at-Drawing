@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+# [0.2.0] - 2017-06-11
+### Changed
+- Renamed server folder to game-files
+- Moved client folder into server folder
+
 # [0.2.0] - 2017-04-11
 ### Added
 - Changelog.md
